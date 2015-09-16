@@ -43,7 +43,7 @@ namespace TestBlog.Core.Objects
         public virtual Category Category
         { get; set; }
 
-        public virtual IList<Tag> Tag
+        public virtual IList<Tag> Tags
         { get; set; }
     }
 }
