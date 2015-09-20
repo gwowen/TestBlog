@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using TestBlog.Core.Objects;
 using NHibernate;
 using NHibernate.Cache;
+using NHibernate.Tool.hbm2ddl;
 using Ninject;
 using Ninject.Modules;
 using Ninject.Web.Common;
-using TestBlog.Core.Objects;
+
 
 namespace TestBlog.Core
 {
@@ -27,10 +27,10 @@ namespace TestBlog.Core
                             c.FromConnectionStringWithKey("TestBlogDbConnString")))
                         .Cache(c => c.UseQueryCache().ProviderClass<HashtableCacheProvider>())
                         .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Post>())
-                        //this no workie!
-                        //.ExposeConfiguration(cfg => new SchemaExport(cfg).Execute(true, true, false))
+                        .ExposeConfiguration(cfg => new SchemaExport(cfg).Execute(true, true, false))
                         .BuildConfiguration()
-                        .BuildSessionFactory())
+                        .BuildSessionFactory()
+                )
                         .InSingletonScope();
 
             Bind<ISession>()
